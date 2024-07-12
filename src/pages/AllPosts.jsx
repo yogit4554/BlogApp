@@ -1,7 +1,6 @@
-import React from 'react'
-import appwriteService from '../appwrite/config'
-import Container from '../components/container/container'
-import PostCard from '../components/PostCard'
+import React, {useState, useEffect} from 'react'
+import { Container, PostCard } from '../components'
+import appwriteService from "../appwrite/config";
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
