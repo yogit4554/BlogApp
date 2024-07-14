@@ -1,6 +1,7 @@
+
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE, Select } from "..";
+import { Button, Input, RTE, Select } from "../index";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -29,7 +30,7 @@ export default function PostForm({ post }) {
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
                 featuredImage: file ? file.$id : undefined,
-            });
+            }); 
 
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
