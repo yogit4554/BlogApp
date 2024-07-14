@@ -1,4 +1,3 @@
-
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
@@ -37,11 +36,11 @@ export default function PostForm({ post }) {
             }
         } else {
             const file = await appwriteService.uploadFile(data.image[0]);
-
+            console.log(userData.$id);
             if (file) {
-                const fileId = file.$id;
+                const fileId = file?.$id;
                 data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                const dbPost = await appwriteService.createPost({userId: userData.$id ,...data });
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);

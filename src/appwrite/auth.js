@@ -39,7 +39,7 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
+            console.log("Getting error while getting current user", error);
         }
 
         return null;
@@ -50,11 +50,11 @@ export class AuthService {
         try {
             await this.account.deleteSessions();
         } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            console.log("getting error while  logout", error);
         }
     }
 }
 
 const authService = new AuthService();
 
-export default authService
+export default authService;
