@@ -10,7 +10,9 @@ const Fotter = () => {
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
                             <div className="mb-0 inline-flex items-center">
-                                <Logo/>
+                                <Link to='/'>
+                                <Logo />
+                                </Link>
                             </div>
                             <div className='mt-0'>
                                 <h2 className="text-lg text-gray-700">SnapWrite</h2>

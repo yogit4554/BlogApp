@@ -4,10 +4,13 @@ import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 export default function Post() {
     const [post, setPost] = useState(null);
     const [imageUrl, setImageUrl] = useState("");
+    const [loading,setLoading] = useState(true);
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -22,6 +25,7 @@ export default function Post() {
                     setPost(post);
                     appwriteService.getFilePreview(post.featuredImage).then((url)=>{
                         setImageUrl(url.href);
+                        setLoading(false);
                     });
                 }
                 else navigate("/");
@@ -33,15 +37,17 @@ export default function Post() {
         appwriteService.deletePost(post.$id).then((status) => {
             if (status) {
                 appwriteService.deleteFile(post.featuredImage);
+                toast.error("Post has been deleted!!!")
                 navigate("/");
             }
         });
     };
 
-    return post ? (
+    return (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+                {loading?(<Spinner/>): post ? (<>
+                    <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
                         src={imageUrl}
                         alt={post.title}
@@ -66,8 +72,9 @@ export default function Post() {
                 </div>
                 <div className="browser-css">
                     {parse(post.content)}
-                    </div>
+                </div>
+                </>):null}
             </Container>
         </div>
-    ) : null;
+    );
 }

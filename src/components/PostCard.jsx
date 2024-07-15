@@ -11,7 +11,7 @@ function PostCard({$id, title, featuredImage}) {
     });
   },[featuredImage]);
 
-  const imageStyle = imageUrl && imageUrl.height > 30 ? { height: '30px' } : {};
+  const imageStyle = imageUrl && imageUrl.height > 10 ? { height: '10px' } : {};
 
     
   return (
