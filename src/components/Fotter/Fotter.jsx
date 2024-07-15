@@ -9,12 +9,16 @@ const Fotter = () => {
                 <div className="-m-6 flex flex-wrap">
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
                         <div className="flex h-full flex-col justify-between">
-                            <div className="mb-4 inline-flex items-center">
-                                <Logo width="100px" />
+                            <div className="mb-0 inline-flex items-center">
+                                <Logo/>
+                            </div>
+                            <div className='mt-0'>
+                                <h2 className="text-lg text-gray-700">SnapWrite</h2>
+                                <p className="text-sm text-gray-700">East of Kailash, South Delhi,India</p>
                             </div>
                             <div>
                                 <p className="text-sm text-gray-600">
-                                    &copy; Copyright 2023. All Rights Reserved by DevUI.
+                                    &copy; Copyright 2023. All Rights Reserved by Yogendra.
                                 </p>
                             </div>
                         </div>

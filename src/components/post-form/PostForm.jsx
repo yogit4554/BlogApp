@@ -1,11 +1,13 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Spinner from "../Spinner.jsx"
 
 export default function PostForm({ post }) {
+    const[loading,setloading]=useState(false);
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -19,33 +21,40 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
-        if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
-
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage);
-            }
-
-            const dbPost = await appwriteService.updatePost(post.$id, {
-                ...data,
-                featuredImage: file ? file.$id : undefined,
-            }); 
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else {
-            const file = await appwriteService.uploadFile(data.image[0]);
-            console.log(userData.$id);
-            if (file) {
-                const fileId = file?.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({userId: userData.$id ,...data });
-
+        setloading(true);
+        try {
+            if (post) {
+                const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+    
+                if (file) {
+                    appwriteService.deleteFile(post.featuredImage);
+                }
+    
+                const dbPost = await appwriteService.updatePost(post.$id, {
+                    ...data,
+                    featuredImage: file ? file.$id : undefined,
+                }); 
+    
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
+            } else {
+                const file = await appwriteService.uploadFile(data.image[0]);
+                console.log(userData.$id);
+                if (file) {
+                    const fileId = file?.$id;
+                    data.featuredImage = fileId;
+                    const dbPost = await appwriteService.createPost({userId: userData.$id ,...data });
+    
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`);
+                    }
+                }
             }
+        } catch (error) {
+            console.log(`error while creating or updatinf ${error.message}`);
+        }finally{
+            setloading(false);
         }
     };
 
@@ -72,7 +81,12 @@ export default function PostForm({ post }) {
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+            {
+                loading ?(
+                    <Spinner loading={loading}/>
+                ):(
+                    <>
+                    <div className="w-2/3 px-2">
                 <Input
                     label="Title :"
                     placeholder="Title"
@@ -117,6 +131,8 @@ export default function PostForm({ post }) {
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>
+            </>
+                )}
         </form>
     );
 }
