@@ -5,6 +5,7 @@ import {login} from '../store/authSlice'
 import {Button, Input, Logo} from './index.js'
 import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 function Signup() {
     const navigate = useNavigate()
@@ -24,11 +25,14 @@ function Signup() {
         } catch (error) {
             setError(error.message)
         }
+        finally{
+            toast.success("Signup Successfully!!!")
+        }
     }
 
   return (
     <div className="flex items-center justify-center">
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+            <div className={`mx-auto w-full max-w-lg bg-customCardBg rounded-xl p-10 border border-black/10`}>
             <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
