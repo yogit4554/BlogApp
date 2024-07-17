@@ -19,9 +19,13 @@ function Home() {
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Login to read posts
+                            <h1 className="text-8xl text-customHeaderBg font-bold pb-6 pt-3">
+                            Create a blog 
                             </h1>
+                            <h1 className="text-8xl text-customHeaderBg font-bold pb-6">
+                            worth sharing 
+                            </h1>
+                            <h1 className="text-xl text-customHeaderBg text-ellipsis font-bold pt-5 pb-16">Create a unique and beautiful blog easily.</h1>
                         </div>
                     </div>
                 </Container>
