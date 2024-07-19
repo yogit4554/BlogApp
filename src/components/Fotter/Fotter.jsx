@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Logo from '../Logo'
 
 const Fotter = () => {
+
+    const currYear=new Date().getFullYear();
   return (
     <section className="relative overflow-hidden py-10 bg-customHeaderBg border border-t-2 border-customBorder">
             <div className="relative z-10 mx-auto max-w-7xl px-4">
@@ -20,7 +22,8 @@ const Fotter = () => {
                             </div>
                             <div>
                                 <p className="text-sm text-white">
-                                    &copy; Copyright 2023. All Rights Reserved by Yogendra.
+                                    &copy; Copyright {currYear}. All Rights Reserved by  
+                                    <Link className='font-bold hover:text-red-500' to="https://yteewari.netlify.app/ "> Yogendra Tiwari</Link>.
                                 </p>
                             </div>
                         </div>

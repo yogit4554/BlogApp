@@ -42,11 +42,12 @@ export default function PostForm({ post }) {
                 }
             } else {
                 const file = await appwriteService.uploadFile(data.image[0]);
-                console.log(userData.$id);
+                console.log(userData);
+                console.log(userData.userData.$id);
                 if (file) {
                     const fileId = file?.$id;
                     data.featuredImage = fileId;
-                    const dbPost = await appwriteService.createPost({userId: userData.$id ,...data });
+                    const dbPost = await appwriteService.createPost({userId: userData?.userData?.$id ?? userData?.$id ,...data });
     
                     if (dbPost) {
                         toast.success("Post created successfully!");
