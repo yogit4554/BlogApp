@@ -52,7 +52,7 @@ function Header() {
           </div>
           {authStatus && (
             <div className='flex items-center'>
-             <h2 className='inline-block px-6 py-2 duration-200 text-white'>Hello, {userData?.userData?.name}</h2> 
+             <h2 className='inline-block px-6 py-2 duration-200 text-white'>Welcome, {userData?.userData?.name}</h2> 
             </div>
             )}
           <ul className='flex ml-auto'>
